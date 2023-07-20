@@ -5,7 +5,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.launchcode.techjobs.oo.*;
 
-import static org.junit.Assert.assertNotEquals;
+import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.*;
 
 /**
  * Created by LaunchCode
@@ -22,8 +23,26 @@ public class JobTest {
     @Test
     public void testJobConstructorSetsAllFields () {
         Job jobThree = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
-      //  jobThree.Job instanceof Job;
+        assertTrue(jobThree instanceof Job);
+        assertTrue(jobThree.getEmployer() instanceof Employer);
+        assertTrue(jobThree.getLocation() instanceof Location);
+        assertTrue(jobThree.getPositionType() instanceof PositionType);
+        assertTrue(jobThree.getCoreCompetency() instanceof CoreCompetency);
 
+        assertEquals("Product tester", jobThree.getName());
+        assertEquals("ACME", jobThree.getEmployer().getValue());
+        assertEquals("Desert", jobThree.getLocation().getValue());
+        assertEquals("Quality control", jobThree.getPositionType().getValue());
+        assertEquals("Persistence", jobThree.getCoreCompetency().getValue());
+
+
+    }
+
+    @Test
+    public void testJobsForEquality() {
+    Job jobOne = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
+    Job jobTwo = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
+    assertFalse(jobOne.getId() == jobTwo.getId());
     }
 
 

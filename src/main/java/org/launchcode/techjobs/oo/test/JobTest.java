@@ -5,7 +5,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.launchcode.techjobs.oo.*;
 
-import static junit.framework.TestCase.assertEquals;
+import javax.naming.Name;
+
 import static org.junit.Assert.*;
 
 /**
@@ -42,10 +43,43 @@ public class JobTest {
     public void testJobsForEquality() {
     Job jobOne = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
     Job jobTwo = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
-    assertFalse(jobOne.getId() == jobTwo.getId());
+        assertFalse(jobOne.getId() == jobTwo.getId());
     }
 
+    @Test
+    public void testToStringStartsAndEndsWithNewLine() {
+        Job jobOne = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
+        String jobOneStr = jobOne.toString();
+        assertEquals(jobOneStr.charAt(0), '\n');
+        assertEquals(jobOneStr.charAt(jobOneStr.length()-1), '\n');
+        }
+        @Test
+    public void testToStringContainsCorrectLabelsAndData() {
+            Job jobOne = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
+            String jobOneStr = jobOne.toString();
+            String expectedStr = '\n' +
+                    "ID: " + jobOne.getId() + '\n' +
+                    "Name: " + "Product tester" + '\n' +
+                    "Employer: " + "ACME" + '\n' +
+                    "Location: " + "Desert" + '\n' +
+                    "Position Type: " + "Quality control" + '\n' +
+                    "Core Competency: " + "Persistence" + '\n';
+            assertEquals(expectedStr, jobOneStr);
+        }
+        @Test
+    public void testToStringHandlesEmptyField() {
+            Job jobOne = new Job("", new Employer(""), new Location(""), new PositionType(""), new CoreCompetency(""));
+            String jobOneStr = jobOne.toString();
+            String expectedStr = '\n' +
+                    "ID: " + jobOne.getId() + '\n' +
+                    "Name: " + "Data not available" + '\n' +
+                    "Employer: " + "Data not available" + '\n' +
+                    "Location: " + "Data not available" + '\n' +
+                    "Position Type: " + "Data not available" + '\n' +
+                    "Core Competency: " + "Data not available" + '\n';
+            assertEquals(expectedStr, jobOneStr);
+        }
+    }
 
-}
 
 
